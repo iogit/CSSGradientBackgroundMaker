@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CSS Gradient Background Maker</title>	
+    <!-- Copyright © Microsoft Corporation. All Rights Reserved. -->
+    <!-- Demo Author: IE, Microsoft Corporation -->
+    <!-- Credits: jscolor (Jan Odvarko) http://odvarko.cz --> 
+    <meta name="description" content="IE10 Test Drive Demo" />
+    <meta name="t_omni_demopage" content="1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="BaseStyles.css" />
+    <link rel="stylesheet" type="text/css" href="Includes/Styles/DemoTemplate.css" />
+    <link rel="stylesheet" type="text/css" href="Includes/Styles/ReturnAndShareControls.css" />
+    <link rel="stylesheet" type="text/css" href="Demo.css" />
+    <link rel="shortcut icon" href="../../Includes/Image/FavIcon.ico" />
+    <script type="text/javascript" src="../../Includes/Script/FeatureDetection.js" data-detect=""></script>
+</head>
+<body onload="init()">
+    <div id="ReturnAndShareControls"></div>  
+    <h1 id="DemoTitle">
+        CSS Gradient Background Maker
+    </h1>
+    <div id="DemoIntroduction">
+        <p>
+            Use this demo to create CSS background-image gradients. The CSS markup works in 
+			browsers (including Internet Explorer 10, Chrome, Firefox, Opera, Safari) that support CSS3 
+			gradients in unprefixed form or with any of the following vendor prefixes: -ms-, -moz-, -o-, -webkit-. 
+		</p>
+    </div>
+    <div id="DemoContent">
+        <table id="controlwrapper" onchange="UpdateSample();">
+            <tr>
+                <td class="labelCell">
+                    Existing markup:
+                </td>
+                <td class="dataCell" id="markupPanel">
+                    <a id="htxtlink" href="javascript:showImportGradMarkup()">Click to paste existing CSS background-image markup 
+						that follows the format that is consistent with this demo's CSS markup.</a>
+                    <textarea style="display: none;" id="markupsource"></textarea>
+					<div>
+						<a id="parselink" style="float: left; display: none; padding-right: 5px;" href="javascript:loadMarkup()">Parse</a>
+						<div id="markuptype" style="float: left;"></div>
+						<a id="hidelink" style="float: right; display: none; padding: 0px;" href="javascript:hideImportGradMarkup()">Hide</a>					
+					</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="labelCell">
+                    Gradient style:
+                </td>
+                <td class="dataCell">
+                    <form id="gtype">
+                    <input type="radio" id="lgrad" name="gradtype" value="Linear" onclick="loadLinearTable()" /><label for="lgrad">Linear</label>
+                    <input type="radio" id="cgrad" name="gradtype" value="Circular" onclick="loadRadialTable('circle')" /><label for="cgrad">Circular</label>
+                    <input type="radio" id="egrad" name="gradtype" value="Elliptical" onclick="loadRadialTable('ellipse')" /><label for="egrad">Elliptical</label>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td class="labelCell">
+                    Stops:
+                </td>
+                <td class="dataCell">
+                    <!-- START table of stops -->
+                    <table>
+                        <tbody id="stops">
+                            <tr id="stopsLabel">
+                                <td>
+                                </td>
+                                <td id="firstLabel">
+                                    Start
+                                </td>
+                                <td id="lastLabel">
+                                    End
+                                </td>
+                            </tr>
+                            <tr id="stopsOffset">
+                                <td>
+                                    Offset:
+                                </td>
+                                <td id="firstOffset">
+                                    <input id="offset0" type="text" size="6" value="0" />
+                                </td>
+                                <td id="lastOffset">
+                                    <input id="offsetN" type="text" size="6" value="1" />
+                                </td>
+                            </tr>
+                            <tr id="stopsColor">
+                                <td style="font-weight: normal;">
+                                    Color:
+                                </td>
+                                <td id="firstColor">
+                                    <input type="text" class="color" id="color0" size="6" value="FFFFFF" />
+                                </td>
+                                <td id="lastColor">
+                                    <input type="text" class="color" id="colorN" size="6" value="00A3EF" />
+                                </td>
+                            </tr>
+                            <tr id="stopsButton">
+                                <td style="font-weight: normal;">
+                                    <a href="javascript:InsertStop();">Add Stop</a>
+                                </td>
+                                <td id="firstButton" />
+                                <td id="lastButton" />
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- END table of stops -->
+                </td>
+            </tr>
+            <tr>
+                <td class="labelCell" id="dirLabel">
+                    Direction:
+                </td>
+                <td class="dataCell" id="posPanel" onchange="updateAllPanels();">
+                    <td>
+            </tr>
+            <tr id="sizes" style="display: none;">
+                <td class="labelCell">
+                    Sizes:
+                </td>
+                <td class="dataCell" id="sizePanel" onchange="updateAllPanels();">
+                    <td>
+            </tr>
+            <tr>
+                <td class="labelCell">
+                    Sample:
+                </td>
+                <td class="dataCell">
+					<div id="otherSample" onresize="updateSize()" />
+					<div id="unsupportedBrowserMsg">Your browser may not be compatible with this demo.
+					<br />This demo only supports CSS gradients unprefixed or with 
+					-ms-, -moz-, -o-, and -webkit- prefixes.</div>
+                </td>
+            </tr>
+
+			<tr>
+                <td class="labelCell">
+                    CSS markup:
+                </td>
+                <td class="dataCell">
+                    <pre id="othersource"></pre>
+                </td>
+            </tr>		
+        </table>
+    </div>
+    <div id="DemoDetails">
+        This demo uses <a href="http://jscolor.com">jscolor</a> (a JavaScript color picker
+        developed by <a href="http://odvarko.cz">Jan Odvarko</a>).
+    </div>
+    <script type="text/javascript" src="Demo.js"></script>
+	<script type="text/javascript" src="base64.js"></script>
+    <script type="text/javascript" src="jscolor/jscolor.js"></script>	
+    <script type="text/javascript" src="../../Includes/Script/TestDriveCommon.js"></script>
+    <script type="text/javascript" src="../../Includes/Script/ReturnAndShareControls.js"></script>
+</body>
+</html>
